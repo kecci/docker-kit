@@ -1,0 +1,1142 @@
+{
+	"info": {
+		"_postman_id": "1282a7cd-bf83-4f8f-b1b2-6e7626913237",
+		"name": "[ELASTICSEARCH] LOCAL",
+		"description": "Source\n\n\\*   https://github.com/davidbkemp/advanced-elasticsearch-training\n\\*   [https://jamesfer.me/intro-elasticsearch-training/#1](https://jamesfer.me/intro-elasticsearch-training/#1)",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "1421889"
+	},
+	"item": [
+		{
+			"name": "Getting Started",
+			"item": [
+				{
+					"name": "1. Create an index called movies",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:9200/movies",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9200",
+							"path": [
+								"movies"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "2. Index our first document",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"id\": \"1\",\n  \"title\": \"Spider-Man: Homecoming\",\n  \"genres\": [ \"comedy\", \"action\" ]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:9200/movies/_doc/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9200",
+							"path": [
+								"movies",
+								"_doc",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "3. Searching",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:9200/movies/_search",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9200",
+							"path": [
+								"movies",
+								"_search"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "4. Delete a document",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:9200/movies/_doc/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9200",
+							"path": [
+								"movies",
+								"_doc",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "5. Delete the index",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:9200/movies",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9200",
+							"path": [
+								"movies"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Mappings",
+			"item": [
+				{
+					"name": "1. Create a mapping for our example movie document",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"mappings\": {\n    \"properties\": {\n      \"id\": {\n        \"type\": \"keyword\"\n      },\n      \"title\": {\n        \"type\": \"text\",\n        \"analyzer\": \"english\"\n      },\n      \"genres\": {\n        \"type\": \"keyword\"\n      }\n    }\n  }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:9200/movies",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9200",
+							"path": [
+								"movies"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "2. Automated mappings",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:9200/movies/_mapping",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9200",
+							"path": [
+								"movies",
+								"_mapping"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"description": "# Mappings\n\nDefine how a document and it fields are indexed\n\n\\*   Which string should be tokenized or treated as keywords\n\\*   Field data types (e.g number, dates, geolocations)\n\\*   How text field should be analyzed\n\\*   etc\n    \n\n### Dynamic mappings\n\n\\*   Allows for indexing documents without previously defining the mappings\n\\*   New fields will be added by indexing new documents\n\\*   It can be disabled\n    \n\n[Mappings](https://www.elastic.co/guide/en/elasticsearch/reference/current/mapping.html)"
+		},
+		{
+			"name": "Term Queries",
+			"item": [
+				{
+					"name": "1. Create index articles",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:9200/articles",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9200",
+							"path": [
+								"articles"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "2. Index our first document Copy",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"id\": \"1\",\n  \"description\": \"beer\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:9200/articles/_doc/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9200",
+							"path": [
+								"articles",
+								"_doc",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "1. Query for documents that contain the word beer",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"query\": {\n    \"term\": {\n      \"description\": \"beer\"\n    }\n  }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:9200/articles/_search",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9200",
+							"path": [
+								"articles",
+								"_search"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "1. Query for documents that contain the word beer Copy",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"query\": {\n    \"terms\": {\n      \"description\": [\"beer\", \"rum\"]\n    }\n  }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:9200/articles/_search",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9200",
+							"path": [
+								"articles",
+								"_search"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"description": "# Term queries\n\n\\* Matches on the **exact** term  \n\\* A document either matches or not. No score (relevancy) is calculated  \n\\* Commonly used on `keyword` type fields  \n\\* Useful for searching: names, ids, discrete values (e.g movie genres)\n\nQuery for documents that contain the word `beer`:\n\n```\nGET articles/_search{  \"query\": {    \"term\": {      \"description\": \"beer\"    }  }}\n\n```\n\n```\nGET articles/_search{  \"query\": {    \"terms\": {      \"description\": [\"beer\", \"rum\"]    }  }}\n\n```\n\n[Term query](https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl-term-query.html)\n\n# Term queries (Exercises)\n\n### 1\\. Find movies that contain 'batman' in the **overview**\n\n### 2\\. Find movies that contain 'batman' OR 'thor' in the **overview**\n\n### 3\\. Now only 'Batman' (note the uppercase), can you guess why no movies are returned?"
+		},
+		{
+			"name": "Range Queries",
+			"item": [
+				{
+					"name": "1. Index our first document",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"id\": \"2\",\n  \"title\": \"Captain America\",\n  \"genres\": [ \"comedy\", \"action\" ],\n  \"rating\": 4\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:9200/movies/_doc/2",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9200",
+							"path": [
+								"movies",
+								"_doc",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "2. Matches documents with values within the specified range",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"query\": {\n    \"range\": {\n      \"rating\": {\n        \"lt\": 5\n      }\n    }\n  }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:9200/movies/_search",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9200",
+							"path": [
+								"movies",
+								"_search"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"description": "# Range queries\n\n\\* Matches documents with values within the specified range  \n\\* GET movies/_search{ \"query\":\n\n```\nGET movies/_search{  \"query\": {    \"range\": {      \"rating\": {        \"lt\": 5      }    }  }}\n\n```\n\nNote that you can use multiple operators in a single range query.\n\n[Range query](https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl-range-query.html)\n\n# Range queries (Exercises)\n\n### Find movies with **release_date** between `2016-01-01` and `2016-12-01`"
+		},
+		{
+			"name": "Analyzers",
+			"item": [
+				{
+					"name": "1. Analyzers (in Mapping)",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"mappings\": {\n    \"properties\": {\n      \"name\": {\n        \"type\": \"text\",\n        \"analyzer\": \"whitespace\"\n      }\n    }\n  }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:9200/hotels",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9200",
+							"path": [
+								"hotels"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "2. Test Analyzers",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"analyzer\": \"english\",\n  \"text\": \"Where is that café?\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:9200/hotels/_analyze",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9200",
+							"path": [
+								"hotels",
+								"_analyze"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"description": "# Analyzers\n\n\\* Specifies how the text will be processed before being added to the inverted index (eg. tokenised, lowercased, stemming, stop word removal, etc)  \n\\* Elasticsearch has several [built-in analyzers](https://www.elastic.co/guide/en/elasticsearch/reference/current/analysis-analyzers.html)  \n\\* Specified in the mapping  \n\\* Supports custom analysers\n\nYou can use the `/_analyze` endpoint to test analyzers\n\nFor example, [location suggest's mappings and settings](https://git.realestate.com.au/consumer-experience/locations-suggest-mapping/tree/c21706a4e6b86e3481037f78ecc8baf39a842da7/src/main/resources/com/reagroup/locationssuggest/addresses)\n\n[Analyzers](https://www.elastic.co/guide/en/elasticsearch/reference/current/analysis.html)\n\n# Analyzers (Exercises)\n\n1.Try the 'standard', 'whitespace' and 'english' analyzers with:\n\n```\nGET /_analyze{  \"analyzer\": \"english\",  \"text\": \"Where is that café?\"}\n```\n\n2.Which analyzer should you use so that the following query returns the sample document\n\nQuery:\n\n```\nGET analyzer-test/_search{  \"query\": {    \"match\": {      \"title\": {        \"query\": \"bobs burgers\"      }    }  }}\n```\n\nSample document:\n\n```\nPUT analyzer-test/_doc/1{  \"title\": \"Bob's Burgers!!\"}\n```"
+		},
+		{
+			"name": "Match queries",
+			"item": [
+				{
+					"name": "1. Find the most relevant movies to the \"spider\"",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"query\": {\n    \"match\": {\n      \"title\": {\n        \"query\": \"spider\"\n      }\n    }\n  }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:9200/movies/_search",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9200",
+							"path": [
+								"movies",
+								"_search"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"description": "# Match queries\n\n\\* Accepts text/numeric/date values  \n\\* Analyses the requested value  \n\\* Calculates scores; how relevant is a document for the requested query?  \n\\* Supports fuzziness  \n\\* By default uses the analyzer specified in the mappings\n\n[Match queries](https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl-match-query.html)\n\n# Match queries (Exercises)\n\n### 1\\. Find movies with 'young' AND 'man' in the **overview**\n\nHint: use `operator` field\n\n### 2\\. Add fuzziness so 'young mam' returns the same results"
+		},
+		{
+			"name": "Relevance",
+			"item": [
+				{
+					"name": "Relevance: Term Frequency",
+					"item": [
+						{
+							"name": "1. DELETE /scoring-test",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:9200/scoring-test",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "9200",
+									"path": [
+										"scoring-test"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "2. PUT /scoring-test",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"settings\": {\n    \"number_of_shards\": 1\n  }\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:9200/scoring-test",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "9200",
+									"path": [
+										"scoring-test"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "3. POST /scoring-test/_bulk",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\"index\":{}}\n{ \"title\": \"Apples Apples Apples Apples\"}\n{\"index\":{}}\n{ \"title\": \"Apples Apples Apples Bananas\"}\n{\"index\":{}}\n{ \"title\": \"Apples Apples Bananas Bananas\"}\n{\"index\":{}}\n{ \"title\": \"Apples Bananas Bananas Bananas\"}\n{\"index\":{}}\n{ \"title\": \"Bananas Bananas Bananas Bananas\"}\n{\"index\":{}}\n{ \"title\": \"Oranges\"}\n",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:9200/scoring-test/_bulk",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "9200",
+									"path": [
+										"scoring-test",
+										"_bulk"
+									]
+								},
+								"description": "<img src=\"https://content.pstmn.io/3c2b95cc-3703-451d-8d21-606e41316114/aW1hZ2UucG5n\" alt=\"\" height=\"1190\" width=\"1740\">\n\nbulk update success after **adding newline in last** of all the commands in postman.\n\n[https://stackoverflow.com/a/64202016/8281610](https://stackoverflow.com/a/64202016/8281610)"
+							},
+							"response": []
+						},
+						{
+							"name": "4. GET /scoring-test/_search (apples)",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"query\": {\n    \"match\": {\n      \"title\": \"apples\"\n    }\n  }\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:9200/scoring-test/_search",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "9200",
+									"path": [
+										"scoring-test",
+										"_search"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "5. GET /scoring-test/_search (bananas)",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"query\": {\n    \"match\": {\n      \"title\": \"bananas\"\n    }\n  }\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:9200/scoring-test/_search",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "9200",
+									"path": [
+										"scoring-test",
+										"_search"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Relevance: Inverse document frequency",
+					"item": [
+						{
+							"name": "1. DELETE /scoring-test",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:9200/scoring-test",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "9200",
+									"path": [
+										"scoring-test"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "2. PUT /scoring-test",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"settings\": {\n    \"number_of_shards\": 1\n  }\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:9200/scoring-test",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "9200",
+									"path": [
+										"scoring-test"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "3. POST /scoring-test/_bulk",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\"index\":{}}\n{ \"title\": \"Apples\"}\n{\"index\":{}}\n{ \"title\": \"Apples\"}\n{\"index\":{}}\n{ \"title\": \"Apples\"}\n{\"index\":{}}\n{ \"title\": \"Bananas\"}\n{\"index\":{}}\n{ \"title\": \"Oranges\"}\n{\"index\":{}}\n{ \"title\": \"Oranges\"}\n",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:9200/scoring-test/_bulk",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "9200",
+									"path": [
+										"scoring-test",
+										"_bulk"
+									]
+								},
+								"description": "<img src=\"https://content.pstmn.io/3c2b95cc-3703-451d-8d21-606e41316114/aW1hZ2UucG5n\" alt=\"\" height=\"1190\" width=\"1740\">\n\nbulk update success after **adding newline in last** of all the commands in postman.\n\n[https://stackoverflow.com/a/64202016/8281610](https://stackoverflow.com/a/64202016/8281610)"
+							},
+							"response": []
+						},
+						{
+							"name": "4. GET /scoring-test/_search",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"query\": {\n    \"match\": {\n      \"title\": \"apples bananas oranges\"\n    }\n  }\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:9200/scoring-test/_search",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "9200",
+									"path": [
+										"scoring-test",
+										"_search"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Relevance: Field length normalisation",
+					"item": [
+						{
+							"name": "1. DELETE /scoring-test",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:9200/scoring-test",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "9200",
+									"path": [
+										"scoring-test"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "2. PUT /scoring-test",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"settings\": {\n    \"number_of_shards\": 1\n  }\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:9200/scoring-test",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "9200",
+									"path": [
+										"scoring-test"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "3. POST /scoring-test/_bulk",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\"index\":{}}\n{ \"title\": \"The day I ate the Apples\"}\n{\"index\":{}}\n{ \"title\": \"Apples & Bananas\"}\n",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:9200/scoring-test/_bulk",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "9200",
+									"path": [
+										"scoring-test",
+										"_bulk"
+									]
+								},
+								"description": "<img src=\"https://content.pstmn.io/3c2b95cc-3703-451d-8d21-606e41316114/aW1hZ2UucG5n\" alt=\"\" height=\"1190\" width=\"1740\">\n\nbulk update success after **adding newline in last** of all the commands in postman.\n\n[https://stackoverflow.com/a/64202016/8281610](https://stackoverflow.com/a/64202016/8281610)"
+							},
+							"response": []
+						},
+						{
+							"name": "4. GET /scoring-test/_search",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"query\": {\n    \"match\": {\n      \"title\": \"Apples\"\n    }\n  }\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:9200/scoring-test/_search",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "9200",
+									"path": [
+										"scoring-test",
+										"_search"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Relevance: Percentage of the query terms that match",
+					"item": [
+						{
+							"name": "1. DELETE /scoring-test",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:9200/scoring-test",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "9200",
+									"path": [
+										"scoring-test"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "2. PUT /scoring-test",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"settings\": {\n    \"number_of_shards\": 1\n  }\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:9200/scoring-test",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "9200",
+									"path": [
+										"scoring-test"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "3. POST /scoring-test/_bulk",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\"index\":{}}\n{ \"title\": \"Apples Oranges\"}\n{\"index\":{}}\n{ \"title\": \"Apples Bananas\"}\n{\"index\":{}}\n{ \"title\": \"Bananas Oranges\"}\n",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:9200/scoring-test/_bulk",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "9200",
+									"path": [
+										"scoring-test",
+										"_bulk"
+									]
+								},
+								"description": "<img src=\"https://content.pstmn.io/3c2b95cc-3703-451d-8d21-606e41316114/aW1hZ2UucG5n\" alt=\"\" height=\"1190\" width=\"1740\">\n\nbulk update success after **adding newline in last** of all the commands in postman.\n\n[https://stackoverflow.com/a/64202016/8281610](https://stackoverflow.com/a/64202016/8281610)"
+							},
+							"response": []
+						},
+						{
+							"name": "4. GET /scoring-test/_search",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"query\": {\n    \"match\": {\n      \"title\": \"Apples Bananas\"\n    }\n  }\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:9200/scoring-test/_search",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "9200",
+									"path": [
+										"scoring-test",
+										"_search"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			],
+			"description": "# Relevance\n\n\\*   **Term frequency:** How often does the term appear in the field\n\\*   **Inverse document frequency:** How often does each term appear in the index (all documents)\n\\*   **Field-length norm:** How long the field is\n\\*   **Percentage of the query terms that match**\n    \n\n[Relevance](https://www.elastic.co/guide/en/elasticsearch/guide/current/relevance-intro.html)"
+		},
+		{
+			"name": "Phrase-match queries",
+			"item": [
+				{
+					"name": "1. GET articles/_search",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "\n{\n  \"query\": {\n    \"match_phrase\": {\n      \"title\": \"back to school\"\n    }\n  }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:9200/articles/_search",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9200",
+							"path": [
+								"articles",
+								"_search"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"description": "# Phrase-match queries\n\n\\* Analyses the requested value  \n\\* Calculates scores  \n\\* Does not support fuzzyness  \n\\* By default uses the analyzer specified in the mappings\n\n[Phrase-match query](https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl-match-query-phrase.html)\n\n# Phrase-match queries (Exercises)\n\n### 1\\. Find only movies that contain the phrase 'young man' (in that order)\n\n### 2\\. What happens if the analyzer removes the stopwords? Would `match_phrase` still work?"
+		},
+		{
+			"name": "Bool queries (query composition)",
+			"item": [
+				{
+					"name": "Should will act filter",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"query\": {\n    \"bool\": {\n      \"should\": {\n        \"match\": {\n          \"title\": \"spider\"\n        }\n      }\n    }\n  }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:9200/movies/_search",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9200",
+							"path": [
+								"movies",
+								"_search"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "New Request",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"query\": {\n    \"bool\": {\n      \"must\": {\n        \"match\": {\n          \"title\": \"thor\"\n        }\n      },\n      \"should\": {\n        \"match_phrase\": {\n          \"title\": \"Dark World\"\n        }\n      },\n      \"must_not\": {\n        \"match\": {\n          \"title\": \"ragnarok\"\n        }\n      }\n    }\n  }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:9200/movies/_search",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9200",
+							"path": [
+								"movies",
+								"_search"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"description": "# Bool queries (query composition)\n\nCombine the results and scores of multiple queries\n\nPossible contexts:\n\n\\* `must`: The clause must appear in matching documents and will contribute to the score.  \n\\* `must_not` & `filter`: Executed as filters, only matching documents will be returned and no scores are calculated.  \n\\* `should`: The document \"should\" match the clause  \n\\* If it is in a context that has `must` or `filter` it will be used to influence the score, not to filter. Documents might be returned even if they do not match any of the `should` clauses  \n\\* If it is by itself, will behave as an _OR_; documents must match at least one of the `should` clauses\n\n[Bool queries](https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl-bool-query.html)\n\n# Bool queries (Exercises)\n\n### 1\\. Find movies that contain 'comedy' and do NOT contain 'action' in the **genres**\n\n### 2\\. To the previous query, add a clause to filter AND rank by the relevance of 'life' in the **overview** field\n\nHINT: Look at `must`\n\n### 3\\. Find ALL the 'comedy' movies and boost those that are about 'christmas'"
+		},
+		{
+			"name": "Bonus",
+			"item": [
+				{
+					"name": "Bonus 1: Exists",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "\n{\n  \"query\": {\n    \"exists\": {\n      \"field\": \"genres\"\n    }\n  }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:9200/movies/_search",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9200",
+							"path": [
+								"movies",
+								"_search"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Bonus 2: Not exists (is null)",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"query\": {\n    \"bool\": {\n      \"must_not\": [\n        {\n          \"exists\": {\n            \"field\": \"genres\"\n          }\n        }\n      ]\n    }\n  }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:9200/movies/_search",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9200",
+							"path": [
+								"movies",
+								"_search"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"description": "# Bonus\n\nExists\n\n```\nGET movies/_search{  \"query\": {    \"exists\": {      \"field\": \"genres\"    }  }}\n```\n\nNot exists (is null)\n\n```\nGET movies/_search{  \"query\": {    \"bool\": {      \"must_not\": [        {          \"exists\": {            \"field\": \"genres\"          }        }      ]    }  }}\n```"
+		}
+	]
+}
