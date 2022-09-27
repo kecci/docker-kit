@@ -1,3 +1,4 @@
+![image](assets/elasticsearch-health.png)
 # Elasticsearch and Kibana
 This is simple setup for elasticsearch and kibana
 
