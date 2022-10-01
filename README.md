@@ -1,9 +1,12 @@
 # Docker Kit for Local
 
-Features:
-- jenkins
-- mongo
-- postgres
-- mysql
-- redis
-- nsq
+| Container | Website |
+| --------- | ------- |
+| elasticsearch | https://elastic.co/ |
+| jenkins | https://www.jenkins.io/ |
+| mailhog | https://github.com/mailhog/MailHog |
+| mongo | https://www.mongodb.com/ |
+| mysql | https://www.mysql.com/ |
+| nsq | https://nsq.io/ |
+| postgres | https://www.postgresql.org/ |
+| redis | https://redis.io/ |
