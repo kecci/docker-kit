@@ -1,5 +1,9 @@
 # Docker Mysql
 
+## Run Docker compose
 ```sh
-$ docker run --platform=linux/amd64 --name mysql-container -e MYSQL_ROOT_PASSWORD=123456 -p 3306:3306 -d amd64/mysql
+$ docker-compose up -d
 ```
+
+## Source
+- https://medium.com/@chrischuck35/how-to-create-a-mysql-instance-with-docker-compose-1598f3cc1bee
