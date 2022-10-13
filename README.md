@@ -3,6 +3,7 @@
 | Container | Website |
 | --------- | ------- |
 | elasticsearch | https://elastic.co/ |
+| jaeger | https://www.jaegertracing.io/ |
 | jenkins | https://www.jenkins.io/ |
 | mailhog | https://github.com/mailhog/MailHog |
 | mongo | https://www.mongodb.com/ |
