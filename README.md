@@ -11,4 +11,5 @@
 | nsq | https://nsq.io/ |
 | postgres | https://www.postgresql.org/ |
 | redis | https://redis.io/ |
+| sonarqube | https://www.sonarqube.org/ |
 | vault-consul | https://www.vaultproject.io/ & https://www.consul.io/ |
