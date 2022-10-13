@@ -10,3 +10,4 @@
 | nsq | https://nsq.io/ |
 | postgres | https://www.postgresql.org/ |
 | redis | https://redis.io/ |
+| vault-consul | https://www.vaultproject.io/ & https://www.consul.io/ |
