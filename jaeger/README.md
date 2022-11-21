@@ -16,6 +16,7 @@ $ docker-compose up -d
 | 14250	| HTTP |	collector | 	accept model.proto |
 | 9411	| HTTP |	collector | 	Zipkin compatible endpoint (optional) |
 
+jaeger Port: http://localhost:16686/
 
 jaeger UI: http://localhost:16686/
 
