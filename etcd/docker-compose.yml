@@ -1,0 +1,6 @@
+version: '3.2'
+services:
+  etcd:
+    image: gcr.io/etcd-development/etcd@v3.5.5
+    container_name: etcd-server
+    
