@@ -13,3 +13,5 @@
 | redis | https://redis.io/ |
 | sonarqube | https://www.sonarqube.org/ |
 | vault-consul | https://www.vaultproject.io/ & https://www.consul.io/ |
+| nats | https://nats.io/ |
+| redpanda (Kafka Compatible) | https://redpanda.com/ |
