@@ -61,19 +61,45 @@ services:
       - --node-id 2
       - --seeds "redpanda-1:33145"
       - --check=false
-      - --pandaproxy-addr INSIDE://0.0.0.0:28083,OUTSIDE://0.0.0.0:8083
-      - --advertise-pandaproxy-addr INSIDE://redpanda-2:28083,OUTSIDE://localhost:8083
-      - --kafka-addr INSIDE://0.0.0.0:29093,OUTSIDE://0.0.0.0:9093
-      - --advertise-kafka-addr INSIDE://redpanda-2:29093,OUTSIDE://localhost:9093
-      - --rpc-addr 0.0.0.0:33146
-      - --advertise-rpc-addr redpanda-2:33146
+      - --pandaproxy-addr INSIDE://0.0.0.0:28084,OUTSIDE://0.0.0.0:8084
+      - --advertise-pandaproxy-addr INSIDE://redpanda-3:28084,OUTSIDE://localhost:8084
+      - --kafka-addr INSIDE://0.0.0.0:29094,OUTSIDE://0.0.0.0:9094
+      - --advertise-kafka-addr INSIDE://redpanda-3:29094,OUTSIDE://localhost:9094
+      - --rpc-addr 0.0.0.0:33147
+      - --advertise-rpc-addr redpanda-3:33147
     ports:
       - 8084:8084
       - 9094:9094
     volumes:
-      - redpanda2:/var/lib/redpanda/data
+      - redpanda3:/var/lib/redpanda/data
     networks:
       - redpandanet
+
+  redpanda-console:
+    container_name: redpanda-console
+    image: docker.redpanda.com/redpandadata/console:v2.2.3
+    entrypoint: /bin/sh
+    command: -c "echo \"$$CONSOLE_CONFIG_FILE\" > /tmp/config.yml; /app/console"
+    environment:
+      CONFIG_FILEPATH: /tmp/config.yml
+      CONSOLE_CONFIG_FILE: |
+        kafka:
+          brokers: ["redpanda-1:29092"]
+          schemaRegistry:
+            enabled: true
+            urls: ["http://redpanda-1:8081"]
+        redpanda:
+          adminApi:
+            enabled: true
+            urls: ["http://redpanda-1:9644"]
+    ports:
+      - 8080:8080
+    networks:
+      - redpandanet
+    depends_on:
+      - redpanda-1
+      - redpanda-2
+      - redpanda-3
 
 volumes:
   redpanda1:
