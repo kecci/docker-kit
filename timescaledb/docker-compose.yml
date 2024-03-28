@@ -1,0 +1,18 @@
+version: '3.8'
+
+services:
+  timescaledb:
+    platform: linux/amd64
+    image: timescale/timescaledb-ha:pg16
+    cpus: 2
+    # restart: always
+    environment:
+      POSTGRES_PASSWORD: 'password'
+    command: -c 'shared_buffers=256MB' -c 'max_locks_per_transaction=2048' -c 'shared_preload_libraries=timescaledb,pg_stat_statements' -c 'pg_stat_statements.track=all'
+    ports:
+      - 5432:5432
+    volumes:
+      - timescale_ha_container:/home/postgres/pgdata/data
+
+volumes:
+  timescale_ha_container:

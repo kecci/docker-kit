@@ -1,25 +1,25 @@
-version: '3.2'
+version: '3.8'
 
 services:
-  db:
-    container_name: mysql_db
-    image: mysql
+  mysql_db_container:
+    container_name: mysql_db_container
+    image: mysql:latest
+    # restart: always
     environment:
-      MYSQL_DATABASE: db
-      MYSQL_USER: user
-      MYSQL_PASSWORD: password
-      MYSQL_ROOT_PASSWORD: root
+      MYSQL_ROOT_PASSWORD: password
+    command: 
+      --sql_mode=STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION
     ports:
       - "3306:3306"
     volumes:
-      - mysql:/var/lib/mysql
-    restart: always
+      - mysql_db_container:/var/lib/mysql
     
-  adminer:
-    image: adminer
-    ports:
-      - "4080:8080"
-    restart: always
+  # adminer:
+  #   image: adminer:latest
+  #   environment:
+  #     ADMINER_DEFAULT_SERVER: mysql_db_container
+  #   ports:
+  #     - "4080:8080"
 
 volumes:
-  mysql:
+  mysql_db_container:

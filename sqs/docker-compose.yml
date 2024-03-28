@@ -1,0 +1,15 @@
+version: '3.8'
+
+services:
+  sqs:
+    platform: linux/amd64/v8
+    container_name: alpine-sqs
+    image: roribio16/alpine-sqs:latest
+    ports:
+      - 9324:9324
+      - 9325:9325
+    volumes:
+      - alpine-sqs:/opt/custom
+
+volumes:
+  alpine-sqs:
