@@ -2,7 +2,7 @@ version: '3.2'
 
 services:
   sonarqube:
-    image: koolwithk/sonarqube-arm
+    image: sonarqube:9.9.5-community
     hostname: sonarqube
     container_name: sonarqube
     depends_on:
