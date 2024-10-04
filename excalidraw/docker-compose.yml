@@ -1,0 +1,7 @@
+services:
+  excalidraw-server:
+    platform: linux/amd64
+    image: docker.io/excalidraw/excalidraw:latest
+    container_name: excalidraw-server
+    ports:
+      - 4040:80
