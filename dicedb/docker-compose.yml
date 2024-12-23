@@ -1,0 +1,8 @@
+services:
+    # dicedb-cli: https://github.com/DiceDB/dicedb-cli
+    dicedb:
+        platform: linux/amd64
+        ports:
+            - 7379:7379
+        image: dicedb/dicedb
+        command: --enable-watch
