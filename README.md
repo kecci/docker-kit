@@ -1,17 +1,8 @@
-# Docker Kit for Local
+# Docker Kit
 
-| Container | Website |
-| --------- | ------- |
-| elasticsearch | https://elastic.co/ |
-| jaeger | https://www.jaegertracing.io/ |
-| jenkins | https://www.jenkins.io/ |
-| mailhog | https://github.com/mailhog/MailHog |
-| mongo | https://www.mongodb.com/ |
-| mysql | https://www.mysql.com/ |
-| nsq | https://nsq.io/ |
-| postgres | https://www.postgresql.org/ |
-| redis | https://redis.io/ |
-| sonarqube | https://www.sonarqube.org/ |
-| vault-consul | https://www.vaultproject.io/ & https://www.consul.io/ |
-| nats | https://nats.io/ |
-| redpanda (Kafka Compatible) | https://redpanda.com/ |
+Docker kit is a collection of docker-compose that easily to find, copy, and paste.
+
+This really helpful to setup local environment.
+
+## References
+- https://awesome-docker-compose.com
