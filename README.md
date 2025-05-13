@@ -6,7 +6,7 @@ This really helpful to setup local environment.
 
 ## Directory
 ```
-➜  docker-kit git:(master) tree -d    
+➜  docker-kit git:(master) tree -d -L 2
 .
 ├── auth
 │   ├── FusionAuth
@@ -20,55 +20,6 @@ This really helpful to setup local environment.
 ├── broker-queue
 │   ├── kafka-zookeeper
 │   ├── nats
-│   │   └── jetstream-cluster
-│   │       ├── nats1
-│   │       │   └── jetstream
-│   │       │       ├── $G
-│   │       │       │   └── streams
-│   │       │       │       └── KV_bucket-uk
-│   │       │       │           ├── msgs
-│   │       │       │           └── obs
-│   │       │       └── $SYS
-│   │       │           └── _js_
-│   │       │               └── _meta_
-│   │       │                   ├── msgs
-│   │       │                   ├── obs
-│   │       │                   └── snapshots
-│   │       ├── nats2
-│   │       │   └── jetstream
-│   │       │       ├── $G
-│   │       │       │   └── streams
-│   │       │       │       ├── KV_bucket-ob-b
-│   │       │       │       │   ├── msgs
-│   │       │       │       │   └── obs
-│   │       │       │       └── KV_bucket-ob-s
-│   │       │       │           ├── msgs
-│   │       │       │           └── obs
-│   │       │       └── $SYS
-│   │       │           └── _js_
-│   │       │               └── _meta_
-│   │       │                   ├── msgs
-│   │       │                   ├── obs
-│   │       │                   └── snapshots
-│   │       └── nats3
-│   │           └── jetstream
-│   │               ├── $G
-│   │               │   └── streams
-│   │               │       ├── KV_bucket-h
-│   │               │       │   ├── msgs
-│   │               │       │   └── obs
-│   │               │       ├── KV_bucket-rt
-│   │               │       │   ├── msgs
-│   │               │       │   └── obs
-│   │               │       └── KV_market-mover
-│   │               │           ├── msgs
-│   │               │           └── obs
-│   │               └── $SYS
-│   │                   └── _js_
-│   │                       └── _meta_
-│   │                           ├── msgs
-│   │                           ├── obs
-│   │                           └── snapshots
 │   ├── nsq
 │   ├── rabbitmq
 │   ├── redpanda
@@ -77,17 +28,8 @@ This really helpful to setup local environment.
 │   └── jenkins
 ├── code-quality
 │   └── sonarqube
-│       └── asset
 ├── config-secret
 │   └── vault-consul
-│       ├── consul
-│       │   ├── config
-│       │   └── data
-│       └── vault
-│           ├── config
-│           ├── data
-│           ├── logs
-│           └── policies
 ├── config-toggle
 │   └── unleash
 ├── data-key-value
@@ -97,15 +39,8 @@ This really helpful to setup local environment.
 │   └── redisinsight
 ├── data-search-engine
 │   ├── elasticsearch
-│   │   ├── assets
-│   │   └── postman
 │   ├── meilisearch
 │   └── typesense
-│       ├── assets
-│       └── typesense-playground
-│           ├── doc
-│           ├── scripts
-│           └── seed-data
 ├── database
 │   ├── arangodb
 │   ├── cassandra
@@ -118,8 +53,6 @@ This really helpful to setup local environment.
 ├── docs
 │   ├── docmost
 │   ├── paperless-ngx
-│   │   ├── consume
-│   │   └── export
 │   └── pdfding
 ├── drawing
 │   └── excalidraw
