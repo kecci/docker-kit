@@ -1,3 +1,4 @@
 .DS_Store
+/nats/jetstream-cluster/
 /broker-queue/nats/jetstream-cluster/
 /data-search-engine/meilisearch/meili_data/
