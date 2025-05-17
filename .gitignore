@@ -3,3 +3,4 @@
 /broker-queue/nats/jetstream-cluster/
 /broker-queue/nats/db/
 /data-search-engine/meilisearch/meili_data/
+/cloud-emulator/localstack/volume
