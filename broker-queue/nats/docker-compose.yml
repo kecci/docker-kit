@@ -47,6 +47,21 @@ services:
       - "--js"
       - "--sd=/data"
 
+  # NATS dashboard instance running on the same private network.
+  dashboard:
+    image: mdawar/nats-dashboard
+    environment:
+      # The NATS monitoring server will be proxied on /proxy/* on the frontend.
+      # See: config/Caddyfile for the reverse proxy configuration.
+      REVERSE_PROXY_UPSTREAM: 'nats1:8222'
+    volumes:
+      # Optional config file.
+      - ./config.json:/srv/config.json
+    ports:
+      - target: 80
+        published: 4040
+        protocol: tcp
+
 volumes:
   nats1: {}
   nats2: {}
