@@ -1,5 +1,3 @@
-version: '3.8'
-
 services:
   mysql_db_container:
     container_name: mysql_db_container

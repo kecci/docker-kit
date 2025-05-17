@@ -1,5 +1,3 @@
-version: '3'
-
 services:
   nats.js.local:
     container_name: nats-js-local

@@ -1,8 +1,8 @@
 # RabbitMQ
 
 - [RabbitMQ](#rabbitmq)
-	- [Setting Up Docker Compose](#setting-up-docker-compose)
-	- [Source](#source)
+  - [Setting Up Docker Compose](#setting-up-docker-compose)
+  - [Source](#source)
 
 
 RabbitMQ is an open-source message broker that makes communication between services very easy. In particular, RabbitMQ uses a Publish/Subscribe pattern with an Advanced Message Queuing Protocol.
@@ -22,7 +22,6 @@ In this case, we're going to use docker-compose to configure the container name,
 To start, create a folder called rabbitmq-go in your Golang project folder. Then, create a new file with the name docker-compose.yml. Inside that file, add the following:
 
 ```
-version: "3.2"
 services:
   rabbitmq:
     image: rabbitmq:3-management-alpine

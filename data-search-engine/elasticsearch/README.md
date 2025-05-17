@@ -18,8 +18,6 @@ $ docker-compose version
 ### Create docker compose for Elasticsearch and Kibana
 Create file with name `docker-compose.yml` and type this example configuration into file:
 ```yml
-version: "2"
-
 services:
   elasticsearch1:
     image: docker.elastic.co/elasticsearch/elasticsearch:7.13.2

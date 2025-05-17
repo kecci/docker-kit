@@ -1,5 +1,3 @@
-version: '3'
-
 services:
   redpanda-1:
     container_name: redpanda-1
