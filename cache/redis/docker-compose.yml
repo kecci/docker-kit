@@ -1,0 +1,31 @@
+services:
+  redis:
+    container_name: redis
+    image: redis:latest
+    volumes: 
+      - redis:/data
+    ports:
+      - "6379:6379"
+    expose:
+      - "6379"
+    networks:
+      - redis
+  
+  # redisinsight is Web GUI for redis/valkey
+  redisinsight:
+    container_name: redisinsight
+    image: redis/redisinsight:latest
+    volumes:
+      - redisinsight:/data
+    ports:
+      - 5050:5540
+    networks:
+      - redis
+
+networks:
+  redis:
+    driver: bridge
+
+volumes:
+  redis:
+  redisinsight:

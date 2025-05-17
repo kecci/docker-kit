@@ -1,0 +1,39 @@
+# Copyright Broadcom, Inc. All Rights Reserved.
+# SPDX-License-Identifier: APACHE-2.0
+
+services:
+  valkey:
+    image: valkey/valkey:latest
+    environment:
+      # ALLOW_EMPTY_PASSWORD is recommended only for development.
+      - ALLOW_EMPTY_PASSWORD=yes
+      # - VALKEY_DISABLE_COMMANDS=FLUSHDB,FLUSHALL
+    volumes:
+      - 'valkey_data:/valkey/data'
+    ports:
+      - '6379:6379'
+    expose:
+      - '6379'
+    networks:
+      - valkey
+
+  # redisinsight is Web GUI for redis/valkey
+  redisinsight:
+    container_name: redisinsight
+    image: redis/redisinsight:latest
+    volumes:
+      - redisinsight:/data
+    ports:
+      - 5050:5540
+    networks:
+      - valkey
+
+networks:
+  valkey:
+    driver: bridge
+
+volumes:
+  valkey_data:
+    driver: local
+  redisinsight:
+    driver: local
