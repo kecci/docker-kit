@@ -54,20 +54,14 @@ services:
       - nats-server
 
   # NATS dashboard instance running on the same private network.
-  dashboard:
-    image: mdawar/nats-dashboard
-    environment:
-      # The NATS monitoring server will be proxied on /proxy/* on the frontend.
-      # See: config/Caddyfile for the reverse proxy configuration.
-      # This will generate an URL proxy like this: http://localhost:4040/proxy/ that you can put on config.json
-      REVERSE_PROXY_UPSTREAM: 'nats1:8222'
+  nui:
+    image: ghcr.io/nats-nui/nui:edge
     volumes:
-      # Optional config file.
-      - ./config.json:/srv/config.json
+      - ./db:/db
     ports:
-      - target: 80
-        published: 4040
-        protocol: tcp
+      - "4040:31311" 
+    depends_on:
+      - nats1
     networks:
       - nats-server
 
