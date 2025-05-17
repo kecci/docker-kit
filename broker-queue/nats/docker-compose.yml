@@ -3,7 +3,7 @@ services:
     image: nats:latest
     ports:
       - "4222:4222"
-      - "8222:8222"      
+      - "8222:8222"
     volumes:
       - ./jetstream-cluster/nats1:/data
     command:
@@ -14,6 +14,8 @@ services:
       - "--http_port=8222"
       - "--js"
       - "--sd=/data"
+    networks:
+      - nats-server
 
   nats2:
     image: nats:latest
@@ -30,6 +32,8 @@ services:
       - "--http_port=8222"
       - "--js"
       - "--sd=/data"
+    networks:
+      - nats-server
 
   nats3:
     image: nats:latest
@@ -46,6 +50,8 @@ services:
       - "--http_port=8222"
       - "--js"
       - "--sd=/data"
+    networks:
+      - nats-server
 
   # NATS dashboard instance running on the same private network.
   dashboard:
@@ -53,6 +59,7 @@ services:
     environment:
       # The NATS monitoring server will be proxied on /proxy/* on the frontend.
       # See: config/Caddyfile for the reverse proxy configuration.
+      # This will generate an URL proxy like this: http://localhost:4040/proxy/ that you can put on config.json
       REVERSE_PROXY_UPSTREAM: 'nats1:8222'
     volumes:
       # Optional config file.
@@ -61,8 +68,14 @@ services:
       - target: 80
         published: 4040
         protocol: tcp
+    networks:
+      - nats-server
 
 volumes:
   nats1: {}
   nats2: {}
   nats3: {}
+
+networks:
+  nats-server:
+    driver: bridge

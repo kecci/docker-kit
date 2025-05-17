@@ -1,16 +1,8 @@
 {
-  "server": {
-    "name": "NATS Local Server",
-    "url": "http://nats:8222"
-  },
   "servers": [
     {
-      "name": "localhost",
-      "url": "http://localhost:8222"
-    },
-    {
-      "name": "demo.nats.io",
-      "url": "https://demo.nats.io:8222"
+      "name": "Internal Server",
+      "url": "http://localhost:4040/proxy/"
     }
   ],
   "hideServerInput": false
