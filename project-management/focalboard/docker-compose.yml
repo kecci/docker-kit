@@ -1,0 +1,7 @@
+services:
+  focalboard:
+    platform: linux/amd64
+    image: mattermost/focalboard
+    ports:
+      - 2020:8000
+    # restart: always

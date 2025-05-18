@@ -1,0 +1,17 @@
+services:
+  redmine:
+    image: redmine
+    ports:
+      - 2010:3000
+    environment:
+      REDMINE_DB_MYSQL: db
+      REDMINE_DB_PASSWORD: example
+      REDMINE_SECRET_KEY_BASE: supersecretkey
+    # restart: always
+ 
+  db:
+    image: mysql:8.0
+    environment:
+      MYSQL_ROOT_PASSWORD: example
+      MYSQL_DATABASE: redmine
+    # restart: always
