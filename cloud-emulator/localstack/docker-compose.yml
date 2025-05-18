@@ -1,5 +1,7 @@
 # localstack - 💻 A fully functional local AWS cloud stack. Develop and test your cloud & Serverless apps offline
 
+# web ui official: https://app.localstack.cloud/inst/default/status
+
 # guistack: http://localhost:6060
 
 # swagger: http://localhost:4566/_localstack/swagger
