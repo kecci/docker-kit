@@ -1,0 +1,29 @@
+# Portainer is a container management interface. It started out as a GUI for Docker but has expanded to support several other container environments. It has more than 1 million users and over 22,000 GitHub stars. 
+# Two versions are available: the free and open source Community Edition (CE) and a paid Enterprise Edition (EE).
+
+# Here, the image field is set to portainer/portainer-ce:latest to use the latest Portainer CE release from Docker Hub. 
+# Change this to portainer/portainer-ee:latest if you've purchased an Enterprise Edition license.
+
+# The ports field sets up a port binding from your host to the container. 
+# You'll be able to access the Portainer UI by visiting https://localhost:9443. 
+# Portainer provides a self-signed HTTPS certificate, which you can override by mounting your own into the container.
+
+# The volumes field sets up a data volume that's mounted to /data inside the container. 
+# Portainer will write your settings to this location, allowing them to persist after the container restarts. 
+# The host's Docker socket, /var/run/docker.sock, is bind mounted straight into the container. 
+# So Portainer can manage the Docker installation it's running within.
+
+# We could set default username & password with "adminportainer"
+
+services:
+  portainer:
+    image: portainer/portainer-ce:latest
+    ports:
+      - 9443:9443
+      - 9090:9000
+    volumes:
+      - data:/data
+      - /var/run/docker.sock:/var/run/docker.sock
+
+volumes:
+  data:
