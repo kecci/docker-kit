@@ -1,7 +1,7 @@
 services:
   redis:
     container_name: redis
-    image: redis:latest
+    image: redis:7
     volumes: 
       - redis:/data
     ports:
@@ -13,7 +13,7 @@ services:
   
   # redisinsight is Web GUI for redis/valkey
   redisinsight:
-    container_name: redisinsight
+    container_name: redisinsight-redis
     image: redis/redisinsight:latest
     volumes:
       - redisinsight:/data
