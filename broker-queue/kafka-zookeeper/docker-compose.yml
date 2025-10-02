@@ -1,29 +1,37 @@
 services:
   zookeeper-1:
-    image: confluentinc/cp-zookeeper:7.3.0
+    image: confluentinc/cp-zookeeper:7.6.0
     container_name: zookeeper-1
     environment:
       ZOOKEEPER_CLIENT_PORT: 2181
       ZOOKEEPER_TICK_TIME: 2000
     ports:
       - 22181:2181
+    networks:
+      - kafka-net
   
   zookeeper-2:
-    image: confluentinc/cp-zookeeper:7.3.0
+    image: confluentinc/cp-zookeeper:7.6.0
     container_name: zookeeper-2
     environment:
       ZOOKEEPER_CLIENT_PORT: 2181
       ZOOKEEPER_TICK_TIME: 2000
     ports:
       - 32181:2181
+    networks:
+      - kafka-net
 
   kafka-1:
-    image: confluentinc/cp-kafka:7.3.0
+    image: confluentinc/cp-kafka:7.6.0
     container_name: kafka-1
     ports:
     # To learn about configuring Kafka for access across networks see
     # https://www.confluent.io/blog/kafka-client-cannot-connect-to-broker-on-aws-on-docker-etc/
+      - 9092:9092
       - 29092:29092
+      - 9999:9999
+    networks:
+      - kafka-net
     depends_on:
       - zookeeper-1
       - zookeeper-2
@@ -37,12 +45,14 @@ services:
       KAFKA_TRANSACTION_STATE_LOG_REPLICATION_FACTOR: 1
 
   kafka-2:
-    image: confluentinc/cp-kafka:7.3.0
+    image: confluentinc/cp-kafka:7.6.0
     container_name: kafka-2
     ports:
     # To learn about configuring Kafka for access across networks see
     # https://www.confluent.io/blog/kafka-client-cannot-connect-to-broker-on-aws-on-docker-etc/
       - 39092:39092
+    networks:
+      - kafka-net
     depends_on:
       - zookeeper-1
       - zookeeper-2
@@ -54,3 +64,46 @@ services:
       KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
       KAFKA_TRANSACTION_STATE_LOG_MIN_ISR: 1
       KAFKA_TRANSACTION_STATE_LOG_REPLICATION_FACTOR: 1
+
+  schema-registry:
+    image: confluentinc/cp-schema-registry:7.6.0
+    depends_on:
+      - kafka-1
+      - kafka-2
+    ports:
+      - "8081:8081"
+    networks:
+      - kafka-net
+    environment:
+      SCHEMA_REGISTRY_KAFKASTORE_BOOTSTRAP_SERVERS: PLAINTEXT://kafka-1:9092
+      SCHEMA_REGISTRY_HOST_NAME: schema-registry
+      SCHEMA_REGISTRY_LISTENERS: http://0.0.0.0:8081
+
+  kafka-console:
+    container_name: kafka-console
+    image: docker.redpanda.com/redpandadata/console:v3.2.2
+    entrypoint: /bin/sh
+    command: -c "echo \"$$CONSOLE_CONFIG_FILE\" > /tmp/config.yml; /app/console"
+    environment:
+      CONFIG_FILEPATH: /tmp/config.yml
+      CONSOLE_CONFIG_FILE: |
+        kafka:
+          brokers: ["kafka-1:9092"]
+        schemaRegistry:
+          enabled: true
+          urls: ["http://schema-registry:8081"]
+        redpanda:
+          adminApi:
+            enabled: true
+            urls: ["http://kafka-1:9644"]
+    ports:
+      - 8080:8080
+    networks:
+      - kafka-net
+    depends_on:
+      - kafka-1
+      - kafka-2
+
+networks:
+  kafka-net:
+    driver: bridge
