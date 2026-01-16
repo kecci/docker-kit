@@ -2,7 +2,7 @@
 # SPDX-License-Identifier: APACHE-2.0
 
 services:
-  valkey:
+  redis-valkey:
     image: valkey/valkey:latest
     environment:
       # ALLOW_EMPTY_PASSWORD is recommended only for development.
