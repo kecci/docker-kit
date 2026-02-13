@@ -24,6 +24,7 @@ services:
     volumes:
       - redisinsight:/data
     ports:
+      # - 5540:5540 
       - 5050:5540
     networks:
       - valkey
